@@ -1,4 +1,5 @@
 import sqlite3
+from prettytable import PrettyTable
 connection=sqlite3.connect("Mobile.db")
 listoftable = connection.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='SMARTPHONES' ").fetchall()
 if listoftable!=[]:
@@ -39,25 +40,33 @@ while True:
         print("Inserted Successfully")
     elif choice == 2:
         result = connection.execute("SELECT * FROM SMARTPHONES")
+        table = PrettyTable(["ID","SERIAL NO","BRAND","MODEL NAME","MANUFACTURE YEAR","MANUFACTURE MONTH","PRIZE"])
         for i in result:
-            print("ID", i[0])
-            print("SERIALNO", i[1])
-            print("BRAND", i[2])
-            print("MODELNAME", i[3])
-            print("MANUFACTUREYEAR", i[4])
-            print("MANUFACTUREMONTH", i[5])
-            print("PRICE", i[6])
+            table.add_row([i[0],i[1],i[2],i[3],i[4],i[5],i[6]])
+        print(table)
+            # print("ID", i[0])
+            # print("SERIALNO", i[1])
+            # print("BRAND", i[2])
+            # print("MODELNAME", i[3])
+            # print("MANUFACTUREYEAR", i[4])
+            # print("MANUFACTUREMONTH", i[5])
+            # print("PRICE", i[6])
     elif choice == 3:
         getserialno = input("Enter the serialno to be searched: ")
         result = connection.execute("SELECT * FROM SMARTPHONES WHERE SERIALNO= " + getserialno)
+        table = PrettyTable(["ID", "SERIAL NO", "BRAND", "MODEL NAME", "MANUFACTURE YEAR", "MANUFACTURE MONTH", "PRIZE"])
         for i in result:
-            print("ID", i[0])
-            print("SERIALNO", i[1])
-            print("BRAND", i[2])
-            print("MODELNAME", i[3])
-            print("MANUFACTUREYEAR", i[4])
-            print("MANUFACTUREMONTH", i[5])
-            print("PRICE", i[6])
+            table.add_row([i[0],i[1],i[2],i[3],i[4],i[5],i[6]])
+            print(table)
+
+
+            # print("ID", i[0])
+            # print("SERIALNO", i[1])
+            # print("BRAND", i[2])
+            # print("MODELNAME", i[3])
+            # print("MANUFACTUREYEAR", i[4])
+            # print("MANUFACTUREMONTH", i[5])
+            # print("PRICE", i[6])
     elif choice == 4:
         getserialno = input("Enter serialno to be updated: ")
 
